@@ -6,5 +6,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class Professeur extends Model
 {
-    //
+    protected $table = 'professeurs';
+    
+    protected $fillable = [
+        'user_id',
+        'specialite',
+        'grade',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function quizzes()
+    {
+        return $this->hasMany(Quiz::class);
+    }
+
+    public function modules()
+    {
+        return $this->belongsToMany(Module::class, 'enseigner', 'professeur_id', 'module_id');
+    }
 }
